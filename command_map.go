@@ -6,7 +6,7 @@ import (
     "fmt"
 )
 
-func callbackMap() {
+func callbackMap() error {
 
     pokeapiClient := pokeapi.NewClient()
 
@@ -14,6 +14,11 @@ func callbackMap() {
     if err != nil {
         log.Fatal(err)
     }
-    fmt.Println(resp)
+
+    for _, area := range resp.Results {
+        fmt.Printf(" - %s\n", area.Name)
+    }
+
+    return nil
 
 }
