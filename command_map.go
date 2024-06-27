@@ -1,10 +1,8 @@
 package main
 
 import (
-	// "github.com/dezly-macauley/pokedex-cli-go/internal/pokeapi"
 	"errors"
 	"fmt"
-	"log"
 )
 
 // NOTE: Each time this function is called it will load the next page of
@@ -13,7 +11,7 @@ func callbackMap(cfg *config) error {
 
     resp, err := cfg.pokeapiClient.ListLocationAreas(cfg.nextLocationAreaURL)
     if err != nil {
-        log.Fatal(err)
+        return err
     }
 
     for _, area := range resp.Results {
@@ -36,7 +34,7 @@ func callbackMapb(cfg *config) error {
 
     resp, err := cfg.pokeapiClient.ListLocationAreas(cfg.previousLocationAreaURL)
     if err != nil {
-        log.Fatal(err)
+        return err
     }
 
     for _, area := range resp.Results {
