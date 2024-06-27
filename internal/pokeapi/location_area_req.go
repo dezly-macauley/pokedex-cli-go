@@ -10,10 +10,14 @@ import (
 // NOTE: Methods that new instances created from the "Client" struct can use
 
 // You could rename c to instanceOfClient if you wanted to be more verbose
-func (c *Client) ListLocationAreas() (LocationAreasResp, error){
+func (c *Client) ListLocationAreas(pageURL *string) (LocationAreasResp, error){
     
     endpoint := "/location-area"
     fullURL := baseURL + endpoint
+
+    if pageURL != nil {
+        fullURL = *pageURL
+    }
 
     // NOTE: Making a new HTTP request to this endpoint
 

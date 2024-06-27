@@ -4,7 +4,7 @@ import (
     "os"
 )
 
-func callbackExit() error {
+func callbackExit(cfg *config) error {
     // If the user types "exit" then exit the program and do not 
     // show an error code
     os.Exit(0)

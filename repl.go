@@ -7,7 +7,12 @@ import (
 	"strings"
 )
 
-func startRepl() {
+// NOTE: The reason this is a pointer is because you want the entire app
+// to have access to a reference of this config instance.
+// This will prevent wasted memory from accidentally copying the data 
+// structure
+
+func startRepl(cfg *config) {
 
     // infinite for loop
     for {
@@ -49,8 +54,13 @@ func startRepl() {
             fmt.Println("Invalid command")
             continue
         }
-        command.callback()
+        err := command.callback(cfg)
+
+        if err != nil {
+            fmt.Println(err)
+        }
         
+
     }
 
 }
@@ -61,7 +71,7 @@ type cliCommand struct {
     // will perform its task
     name string
     description string
-    callback func() error
+    callback func(*config) error
 }
 
 // This function will return a map where each key in the map 
@@ -77,8 +87,13 @@ func getCommands() map[string]cliCommand {
         },
         "map": {
             name: "map",
-            description: "List some location areas",
+            description: "Shows the next page of locations",
             callback: callbackMap, 
+        },
+        "mapb": {
+            name: "mapb",
+            description: "Shows the previous page of locations",
+            callback: callbackMapb, 
         },
         "exit": {
             name: "exit",
