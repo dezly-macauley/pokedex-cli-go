@@ -18,6 +18,24 @@ func (c *Client) ListLocationAreas(pageURL *string) (LocationAreasResp, error){
     if pageURL != nil {
         fullURL = *pageURL
     }
+    
+    dat, ok := c.cache.Get(fullURL)
+    if ok {
+
+        // fmt.Println("cache hit!")
+        locationAreasResp := LocationAreasResp{}
+
+        // json.unmarshal takes in the data and a pointer to the struct that you
+        // want to unmarshal the data into
+        err := json.Unmarshal(dat, &locationAreasResp)
+        if err != nil {
+            return LocationAreasResp{}, err
+        }
+        
+        return locationAreasResp, nil
+
+    }
+    // fmt.Println("cache miss!")
 
     // NOTE: Making a new HTTP request to this endpoint
 
@@ -53,7 +71,7 @@ func (c *Client) ListLocationAreas(pageURL *string) (LocationAreasResp, error){
     // NOTE: Next read the data from the response body
 
     // This will return data, which will be a slice of bytes, and an error
-    dat, err := io.ReadAll(resp.Body)
+    dat, err = io.ReadAll(resp.Body)
     if err != nil {
         return LocationAreasResp{}, err
     }
@@ -70,6 +88,8 @@ func (c *Client) ListLocationAreas(pageURL *string) (LocationAreasResp, error){
         return LocationAreasResp{}, err
     }
     
+    c.cache.Add(fullURL, dat)
+
     return locationAreasResp, nil
 
 }

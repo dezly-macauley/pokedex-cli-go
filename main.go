@@ -1,6 +1,9 @@
 package main
 
-import "github.com/dezly-macauley/pokedex-cli-go/internal/pokeapi"
+import (
+	"time"
+	"github.com/dezly-macauley/pokedex-cli-go/internal/pokeapi"
+)
 
 // This will hold all of the stateful information for the command callback
 // function
@@ -17,7 +20,7 @@ type config struct {
 func main() {
 
     cfg := config {
-        pokeapiClient: pokeapi.NewClient(),
+        pokeapiClient: pokeapi.NewClient(time.Hour),
     }
 
     // Prompt the user for their input, evaluate it, and print it
