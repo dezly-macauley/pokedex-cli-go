@@ -42,6 +42,10 @@ func startRepl(cfg *config) {
 
         // This first word in the user's input is a command
         commandName := cleaned[0]
+        args := []string{}
+        if len(cleaned) > 1 {
+            args = cleaned[1:]
+        }
 
         // a variable to store a map of the available commands
         availableCommands := getCommands()
@@ -54,7 +58,7 @@ func startRepl(cfg *config) {
             fmt.Println("Invalid command")
             continue
         }
-        err := command.callback(cfg)
+        err := command.callback(cfg, args...)
 
         if err != nil {
             fmt.Println(err)
@@ -71,7 +75,7 @@ type cliCommand struct {
     // will perform its task
     name string
     description string
-    callback func(*config) error
+    callback func(*config, ...string) error
 }
 
 // This function will return a map where each key in the map 
@@ -94,6 +98,11 @@ func getCommands() map[string]cliCommand {
             name: "mapb",
             description: "Shows the previous page of locations",
             callback: callbackMapb, 
+        },
+        "explore": {
+            name: "explore {location area}",
+            description: "Lists the pokemon in a specific area",
+            callback: callbackExplore, 
         },
         "exit": {
             name: "exit",

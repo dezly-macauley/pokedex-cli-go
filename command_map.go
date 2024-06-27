@@ -7,7 +7,7 @@ import (
 
 // NOTE: Each time this function is called it will load the next page of
 // locations
-func callbackMap(cfg *config) error {
+func callbackMap(cfg *config, args ...string) error {
 
     resp, err := cfg.pokeapiClient.ListLocationAreas(cfg.nextLocationAreaURL)
     if err != nil {
@@ -26,7 +26,7 @@ func callbackMap(cfg *config) error {
 }
 
 // NOTE: This one will go back to the previous page of Pokemon locations
-func callbackMapb(cfg *config) error {
+func callbackMapb(cfg *config, args ...string) error {
 
     if cfg.previousLocationAreaURL == nil {
         return errors.New("No previous page. You are already on the first page")
