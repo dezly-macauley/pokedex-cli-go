@@ -15,12 +15,14 @@ type config struct {
     // E.g. Situations where there is no next page, or previous page
     nextLocationAreaURL     *string
     previousLocationAreaURL *string
+    caughtPokemon           map[string]pokeapi.Pokemon
 }
 
 func main() {
 
     cfg := config {
         pokeapiClient: pokeapi.NewClient(time.Hour),
+        caughtPokemon: make(map[string]pokeapi.Pokemon),
     }
 
     // Prompt the user for their input, evaluate it, and print it
