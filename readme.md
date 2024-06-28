@@ -20,3 +20,23 @@
 the console
 
 ---
+
+#### Available Commands
+
+ - `mapb`: Shows the previous page of locations
+
+ - `explore {location area}`: Lists the pokemon in a specific area
+
+ - `pokedex`: View a list of all the Pokemon in your arsenal
+
+ - `catch {name of pokemon}`: Make an attempt to catch a pokemon and add it to your Pokedex
+
+ - `inspect {name of pokemon}`: View information about a pokemon you've caught
+
+ - `exit`: Close the Pokedex
+
+ - `help`: Open the help menu
+
+ - `map`: Shows the next page of locations
+
+ ---
